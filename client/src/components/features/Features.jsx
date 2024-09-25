@@ -1,6 +1,5 @@
 import React from 'react';
 import "./features.css";
-import "../../index.css";
 
 const FeatureItem = ({ icon, title, description }) => (
   <div className="feature-item">

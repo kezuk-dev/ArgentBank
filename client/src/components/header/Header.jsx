@@ -1,39 +1,50 @@
 import React from 'react';
-import "../../index.css";
 import "./header.css";
 import { Logo } from "../../assets/index.js";
-import { LINK_LIST } from "../../pages/index.js";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 function Header() {
+  const isLoggedIn = useSelector((state) => state.log.isLoggedIn);
+  const userData = useSelector((state) => state.user);
   const location = useLocation();
-  const userName = "Tony";
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    localStorage.removeItem("token");
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
-    <>
-      <nav className="main-nav">
-        <a className="main-nav-logo">
-          <img
-            className="main-nav-logo-image"
-            src={Logo}
-            alt="Argent Bank Logo"
-          />
-          <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          {location.pathname === LINK_LIST.User ? (
-            <>
-              <Link to={LINK_LIST.User} className="main-nav-item">
-                {userName}
+    <nav className="main-nav">
+      <Link to="/" className={"main-nav-logo"}>
+        <img
+          className="main-nav-logo-image"
+          src={Logo}
+          alt="Argent Bank Logo"
+        />
+      </Link>
+      <h1 className="sr-only">Argent Bank</h1>
+      <div>
+        {isLoggedIn ? (
+          <div>
+            <Link to="/profile" className={"main-nav-item"}>
+              <i className="fa fa-user-circle"></i> {userData.userName}
+            </Link>
+            {location.pathname === "/profile" && (
+              <Link to="/" onClick={handleLogout} className={"main-nav-item"}>
+                <i className="fa fa-sign-out"></i> Sign Out
               </Link>
-              <Link to={LINK_LIST.Home} className="main-nav-item">Sign Out</Link>
-            </>
-          ) : (
-            <Link to={LINK_LIST.Logging} className="main-nav-item">Sign In</Link>
-          )}
-        </div>
-      </nav>
-    </>
+            )}
+          </div>
+        ) : (
+          <Link to="/signin" className={"main-nav-item"}>
+            <i className="fa fa-user-circle"></i> Sign In
+          </Link>
+        )}
+      </div>
+    </nav>
   );
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import "../../index.css";
 import "./home.css"
 import {Chat, Money, Security} from "../../assets/index.js";
 import {Features} from "../../components/index.js"
