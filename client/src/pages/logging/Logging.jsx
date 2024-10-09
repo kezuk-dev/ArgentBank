@@ -25,12 +25,12 @@ function Logging() {
       "email": usernameInput.current.value,
       "password": passwordInput.current.value,
     };
-    let chargeUtile = JSON.stringify(loginForm);
+    let payload = JSON.stringify(loginForm);
 
     return await fetch("http://localhost:3001/api/v1/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: chargeUtile,
+      body: payload,
     }).then((resp) => resp.json());
   }
 
