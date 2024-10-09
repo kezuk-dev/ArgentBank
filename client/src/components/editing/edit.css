@@ -1,3 +1,9 @@
+h1 {
+    color: black;
+    font-style: normal;
+
+}
+
 .user-edit-container {
     display: flex;
     flex-direction: column;
@@ -13,13 +19,14 @@
   
 .form-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 10px;
 }
   
 .form-group label {
     margin-bottom: 5px;
-    font-weight: bold;
+    margin-right: 5px;
+    color:black;
 }
   
 .input-button,

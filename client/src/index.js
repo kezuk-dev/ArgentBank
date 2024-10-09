@@ -9,26 +9,26 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducer/rootReducer.js";
 
+
 const store = configureStore({
   reducer: rootReducer,
   devTools: true,
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <Provider store={store}>
-  <React.StrictMode>
+    <React.StrictMode>
         <Router>
-            <div className="router container">
-                <Header />
-                <Routes>
+          <Header />
+                  <Routes>
                     <Route path="/" element={<Home />}/>
                     <Route path="/signin" element={<Logging />}/>
-                    <Route path="/profile" element={<User />}/>
-                </Routes>
-                <Footer />
-            </div>
+                    <Route path="/profile" element={<User />} />
+                  </Routes>
+            <Footer />
         </Router>
-  </React.StrictMode>
+    </React.StrictMode>
   </Provider>
 );

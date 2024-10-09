@@ -45,7 +45,7 @@ function User() {
       const response = await fetch(
         `http://localhost:3001/api/v1/user/profile`,
         {
-          method: "POST",
+          method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         }
       );
@@ -77,8 +77,10 @@ function User() {
   });
 
   return (
-    <main className="main bg-dark">
-      <EditUser />
+    <main className="main">
+      <div class="header">
+        <EditUser />
+      </div>
       <h2 className="sr-only">Accounts</h2>
       {accounts.map((account) => (
         <Account

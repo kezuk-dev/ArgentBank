@@ -66,7 +66,7 @@ function Logging() {
 
   return (
     <main className="main bg-dark">
-      <section className="sign-in-content">
+      <section className="sign-in-content bg-dark">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
         <form onSubmit={handleLogin}>
