@@ -69,7 +69,7 @@ function Logging() {
     if (errorMessage) {
       const timer = setTimeout(() => {
         setErrorMessage("");
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [errorMessage]);
