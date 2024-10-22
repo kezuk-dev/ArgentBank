@@ -5,6 +5,7 @@ import "./logging.css"
 
 function Logging() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const passwordInput = useRef();
   const usernameInput = useRef();
   const loginButton = useRef();
@@ -13,7 +14,6 @@ function Logging() {
   const navigate = useNavigate();
 
   // VERIFY IF LOGGED //
-
   useEffect(() => {
     if (isLoggedIn) {
       navigate("/profile");
@@ -22,36 +22,48 @@ function Logging() {
 
   async function loginRequest() {
     const loginForm = {
-      "email": usernameInput.current.value,
-      "password": passwordInput.current.value,
+      email: usernameInput.current.value,
+      password: passwordInput.current.value,
     };
     const payload = JSON.stringify(loginForm);
 
-    return await fetch("http://localhost:3001/api/v1/user/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: payload,
-    }).then((resp) => resp.json());
-  }
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      });
 
-  // MANAGE FORM //
+      if (!response.ok) {
+        return response;
+      }
+
+      return await response.json();
+    } catch (error) {
+      throw new Error("NetworkError");
+    }
+  }
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setErrorMessage("");
+
     try {
       const response = await loginRequest();
-      if (response.error) {
-        animationFailed();
-      } else {
-        const token = response.body.token;
-        sessionStorage.setItem("token", token);
-        if (rememberMe) {
-          localStorage.setItem("token", token);
-        }
-        dispatch({ type: "LOGIN_SUCCESS" });
-        navigate("/profile");
+      const data = await response.json();
+      const token = data.body.token;
+      sessionStorage.setItem("token", token);
+      if (rememberMe) {
+        localStorage.setItem("token", token);
       }
+      dispatch({ type: "LOGIN_SUCCESS" });
+      navigate("/profile");
     } catch (error) {
+      if (error.message === "NetworkError") {
+        setErrorMessage("Erreur réseau, impossible de joindre le serveur.");
+      } else {
+        setErrorMessage("Identifiants incorrects.");
+      }
       animationFailed();
     }
   };
@@ -91,11 +103,15 @@ function Logging() {
             className="sign-in-button"
             id="sign-in-button"
             ref={loginButton}
-            onClick={handleLogin}
           >
             Sign In
           </button>
         </form>
+        {errorMessage && (
+          <div className="error-box">
+            <p>{errorMessage}</p>
+          </div>
+        )}
       </section>
     </main>
   );

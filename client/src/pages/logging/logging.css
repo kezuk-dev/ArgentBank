@@ -49,6 +49,15 @@
     font-size: 1.2rem;
 }
 
+.error-box {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #ffdddd;
+  color: #d8000c;
+  border: 1px solid #d8000c;
+  border-radius: 5px;
+}
+
 .loginFailed {
     animation: loginfailed 0.5s both;
     outline: solid 1px red !important;
