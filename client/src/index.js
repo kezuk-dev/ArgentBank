@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {Home, Logging, User} from './pages/';
+import {Home, Logging, User, NotFound} from './pages/';
 import {Footer, Header} from './components/';
 
 import { Provider } from "react-redux";
@@ -26,6 +26,7 @@ root.render(
                     <Route path="/" element={<Home />}/>
                     <Route path="/signin" element={<Logging />}/>
                     <Route path="/profile" element={<User />} />
+                    <Route path="*" element={<NotFound />} />
                   </Routes>
             <Footer />
         </Router>
