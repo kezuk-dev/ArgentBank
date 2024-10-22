@@ -5,7 +5,7 @@ import "./logging.css"
 
 function Logging() {
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher le message d'erreur
   const passwordInput = useRef();
   const usernameInput = useRef();
   const loginButton = useRef();
@@ -27,44 +27,32 @@ function Logging() {
     };
     const payload = JSON.stringify(loginForm);
 
-    try {
-      const response = await fetch("http://localhost:3001/api/v1/user/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: payload,
-      });
-
-      if (!response.ok) {
-        return response;
-      }
-
-      return await response.json();
-    } catch (error) {
-      throw new Error("NetworkError");
-    }
+    return await fetch("http://localhost:3001/api/v1/user/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    }).then((resp) => resp.json());
   }
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    setErrorMessage("");
-
     try {
       const response = await loginRequest();
-      const data = await response.json();
-      const token = data.body.token;
-      sessionStorage.setItem("token", token);
-      if (rememberMe) {
-        localStorage.setItem("token", token);
-      }
-      dispatch({ type: "LOGIN_SUCCESS" });
-      navigate("/profile");
-    } catch (error) {
-      if (error.message === "NetworkError") {
-        setErrorMessage("Erreur réseau, impossible de joindre le serveur.");
+      if (response.error) {
+        animationFailed();
+        setErrorMessage("Identifiants Incorrects.");
       } else {
-        setErrorMessage("Identifiants incorrects.");
+        const token = response.body.token;
+        sessionStorage.setItem("token", token);
+        if (rememberMe) {
+          localStorage.setItem("token", token);
+        }
+        dispatch({ type: "LOGIN_SUCCESS" });
+        navigate("/profile");
       }
+    } catch (error) {
       animationFailed();
+      setErrorMessage("Identifiants Incorrects.");
     }
   };
 
@@ -76,6 +64,15 @@ function Logging() {
       usernameInput.current.classList.remove("loginFailed");
     }, 500);
   }
+
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
 
   return (
     <main className="main">
@@ -103,6 +100,7 @@ function Logging() {
             className="sign-in-button"
             id="sign-in-button"
             ref={loginButton}
+            onClick={handleLogin}
           >
             Sign In
           </button>
