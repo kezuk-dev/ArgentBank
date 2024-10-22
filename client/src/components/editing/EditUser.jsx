@@ -12,6 +12,17 @@ function UserEdit() {
     firstName: userData.firstName || "",
     lastName: userData.lastName || "",
   });
+
+  useEffect(() => {
+    if (userData) {
+      setFormData({
+        userName: userData.userName || "",
+        firstName: userData.firstName || "",
+        lastName: userData.lastName || "",
+      });
+    }
+  }, [userData]);
+
   const inputRefs = {
     userName: useRef(null),
     firstName: useRef(null),

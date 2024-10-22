@@ -21,11 +21,11 @@ function Logging() {
   }, [isLoggedIn, navigate]);
 
   async function loginRequest() {
-    let loginForm = {
+    const loginForm = {
       "email": usernameInput.current.value,
       "password": passwordInput.current.value,
     };
-    let payload = JSON.stringify(loginForm);
+    const payload = JSON.stringify(loginForm);
 
     return await fetch("http://localhost:3001/api/v1/user/login", {
       method: "POST",
@@ -41,7 +41,7 @@ function Logging() {
     try {
       const response = await loginRequest();
       if (response.error) {
-        animationEchec();
+        animationFailed();
       } else {
         const token = response.body.token;
         sessionStorage.setItem("token", token);
@@ -52,11 +52,11 @@ function Logging() {
         navigate("/profile");
       }
     } catch (error) {
-      animationEchec();
+      animationFailed();
     }
   };
 
-  function animationEchec() {
+  function animationFailed() {
     passwordInput.current.classList.add("loginFailed");
     usernameInput.current.classList.add("loginFailed");
     window.setTimeout(function () {
@@ -66,7 +66,7 @@ function Logging() {
   }
 
   return (
-    <main className="main bg-dark">
+    <main className="main">
       <section className="sign-in-content bg-dark">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>

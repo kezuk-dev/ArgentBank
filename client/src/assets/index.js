@@ -1,7 +1,7 @@
-import Logo from "./argentBankLogo.png";
-import Tree from "./bank-tree.jpeg";
-import Chat from "./icon-chat.png";
-import Money from "./icon-money.png";
-import Security from "./icon-security.png";
+import Logo from "./argentBankLogo.webp";
+import Tree from "./bank-tree.webp";
+import Chat from "./icon-chat.webp";
+import Money from "./icon-money.webp";
+import Security from "./icon-security.webp";
 
 export {Logo, Tree, Chat, Money, Security};
