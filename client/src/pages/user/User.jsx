@@ -78,7 +78,7 @@ function User() {
 
   return (
     <main className="main">
-      <div class="header">
+      <div className="header">
         <EditUser />
       </div>
       <h2 className="sr-only">Accounts</h2>
