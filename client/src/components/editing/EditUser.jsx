@@ -92,6 +92,7 @@ function UserEdit() {
     <div className="user-edit-container">
       {isEditing ? (
         <form className="edit-form">
+          <h1>Edit user info</h1>
           <div className="form-group">
             <label htmlFor="userName">User name:</label>
             <input
