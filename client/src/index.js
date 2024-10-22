@@ -8,6 +8,7 @@ import {Footer, Header} from './components/';
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducer/rootReducer.js";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const store = configureStore({

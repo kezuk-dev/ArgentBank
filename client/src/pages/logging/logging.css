@@ -17,6 +17,8 @@
     margin: 0 auto;
     margin-top: 3rem;
     padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 25px;
 }
   
 .sign-in-icon {
@@ -50,7 +52,7 @@
 .loginFailed {
     animation: loginfailed 0.5s both;
     outline: solid 1px red !important;
-  }
+}
   
 @keyframes loginfailed {
     0% {
