@@ -5,7 +5,7 @@ import "./logging.css"
 
 function Logging() {
   const [rememberMe, setRememberMe] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher le message d'erreur
+  const [errorMessage, setErrorMessage] = useState("");
   const passwordInput = useRef();
   const usernameInput = useRef();
   const loginButton = useRef();
