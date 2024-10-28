@@ -4,14 +4,12 @@ import FeaturesItem from './FeaturesItem.jsx';
 
 function Features({ features }) {
   return (
-    <>
-      <section className="features">
-        <h2 className="sr-only">Features</h2>
-        {features.map((feature, index) => (
-          <FeaturesItem key={index} {...feature} />
-        ))}
-      </section>
-    </>
+    <section className="features">
+      <h2 className="sr-only">Features</h2>
+      {features.map((feature, index) => (
+        <FeaturesItem key={index} {...feature} />
+      ))}
+    </section>
   );
 }
 
